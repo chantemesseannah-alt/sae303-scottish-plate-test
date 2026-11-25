@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scots' plates fail every healthy-eating test | Daily Record</title>
+    <meta name="description" content="Too much fat, sugar and salt, not enough fibre: what official figures reveal about what Scots really eat.">
+
+    <!--Polices : Signika pour le logo, Nunito (ronde) pour les titres, Open Sans pour le menu, la rubrique et les boutons-->
+    <!--une seule graisse par police et une seule requête pour que ce soit léger-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@800&family=Open+Sans:wght@700&family=Signika:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <!--Librairies : Chart.js pour le graphique, GSAP pour les animations-->
+    <!--defer : les scripts se lancent après le chargement de la page-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <header>
+        <!--Bandeau rouge avec le nom du journal (logo à gauche comme sur leur site)-->
+        <p class="logo">Daily Record</p>
+
+        <!--Barre des rubriques : liens vers les parties de la page-->
+        <nav class="menu">
+            <a href="#chart">The chart</a>
+            <a href="#tests">The 4 tests</a>
+            <a href="#tips">What can you do?</a>
+            <a href="#questions">Your questions</a>
+        </nav>
+
+        <!--Titre, chapô et auteur de l'article-->
+        <div class="wrap">
+            <!--Rubrique de l'article, comme sur le site du journal-->
+            <p class="rubrique"><span>News</span> › Scottish News</p>
+            <h1>Scots' plates fail every healthy-eating test</h1>
+            <p class="standfirst">Too much fat, sugar and salt, not enough fibre: what official figures reveal about what we really eat.</p>
+            <!--Bloc auteur-->
+            <p class="byline">
+                <strong>Annah Chantemesse</strong> Health reporter
+            </p>
+        </div>
+    </header>
+
+    <main class="wrap">
+
+        <!--Accroche animée : les 17 morceaux de sucre tombent (GSAP)-->
+        <section id="hook">
+            <p class="big">17</p>
+            <h2>sugar cubes. Every day.</h2>
+            <!--les sucres sont créés par le JS-->
+            <div id="cubes" aria-hidden="true"></div>
+        </section>
+
+        <!--Introduction de l'article-->
+        <section>
+            <p class="lead">The average Scot takes home 68 g of added sugar a day in their shopping. That's 17 sugar cubes, every single day.</p>
+            <p>Each cube falling at the top of this page stands for 4 g of that sugar.</p>
+            <p>And sugar is only the start. Official figures from the UK Government's Family Food survey show Scottish households buy far more saturated fat and salt than health experts recommend.</p>
+            <p>At the same time, we're nowhere near eating enough fibre.</p>
+            <p>The Daily Record put the Scottish plate through four simple tests, based on the Scottish Dietary Goals: the official healthy-eating targets used by the Scottish Government and Food Standards Scotland.</p>
+            <p>It failed three of them and missed the fourth.</p>
+        </section>
+
+        <!--Graphique interactif Chart.js-->
+        <section id="chart">
+            <h2>Scotland's plate test: 3 fails, 1 miss</h2>
+            <p class="subtitle">Daily intake per person as % of official targets, Scotland, 2018-19</p>
+
+            <!--Les 2 boutons en dehors du graphique qui le modifient-->
+            <div class="buttons">
+                <button type="button" id="toggle-out" aria-pressed="false">Add eating out</button>
+                <button type="button" id="toggle-target">Hide target line</button>
+            </div>
+
+            <!--Le graphique est dessiné par Chart.js dans ce canvas-->
+            <!--aria-label : description lue par les lecteurs d'écran (mise à jour par le JS)-->
+            <div class="chart-box">
+                <canvas id="plate-chart" role="img" aria-label="Grouped bar chart of Scotland's plate test."></canvas>
+            </div>
+
+            <!--Texte qui change quand on clique sur une barre-->
+            <!--aria-live : le lecteur d'écran lit le nouveau texte-->
+            <p id="chart-info" aria-live="polite">Click a bar to find out where it comes from.</p>
+            <p class="source">Source: Defra, Family Food 2018/19</p>
+
+            <!--Clés de lecture du graphique-->
+            <h3>How to read it</h3>
+            <p>Each bar shows how much we buy compared with the official target. The dotted line marks 100%: the target itself.</p>
+            <p>For saturated fat, salt and sugar, a bar above the line means a limit has been broken. For fibre, the bar stops short of the line: that's a goal we're missing.</p>
+            <p>The red bars show the food we buy for home. Press "Add eating out" to put a dark blue bar next to each one: the same score once meals eaten outside the home are included.</p>
+            <p>Hover over a bar, or tap it on your phone, to see the score and the real amount we buy. Click it to see which foods it comes from. You can also click the labels below the chart, or press "Hide target line" to see the bars on their own.</p>
+        </section>
+
+        <!--Les 4 tests (chaque partie apparaît au scroll avec GSAP)-->
+        <article id="tests">
+
+            <!--Test 1-->
+            <section class="test test-fat">
+                <h2>Test 1: saturated fat</h2>
+                <p class="score">135%</p>
+                <p>Saturated fat makes up 14.9% of the calories in the food we buy. The Scottish Dietary Goals say it should be no more than 11%.</p>
+                <p>That's 135% of the limit, the worst result on the plate.</p>
+                <p>Food Standards Scotland warns that eating too much fat, especially saturated fat, can increase the risk of heart disease. It hides in butter, cheese, fatty meat, pies, pastries and cakes.</p>
+            </section>
+
+            <!--Test 2-->
+            <section class="test test-salt">
+                <h2>Test 2: salt</h2>
+                <p class="score">118%</p>
+                <p>The average Scot buys food containing 7.1 g of salt a day. The limit is 6 g, about a teaspoon.</p>
+                <p>That's 118% of the limit. And the real figure is even higher, because the survey doesn't count the salt we shake on at the table.</p>
+                <p>Most of it is already in our food before we open the packet. According to Food Standards Scotland, around 75% of the salt we eat comes from packaged foods like bread, breakfast cereal and ready meals.</p>
+                <p>Too much salt raises blood pressure and the risk of heart disease and stroke.</p>
+            </section>
+
+            <!--Test 3-->
+            <section class="test test-sugar">
+                <h2>Test 3: sugar</h2>
+                <p class="score">109%</p>
+                <p>Added sugar provides 12% of our calories, just over the 11% limit used in the survey.</p>
+                <p>It may look like a narrow fail, but it adds up to those 17 sugar cubes a day.</p>
+                <p>And today's advice is much stricter. Food Standards Scotland says adults should have no more than 30 g of free sugars a day: around 7 sugar cubes. The Scottish Dietary Goals now put the limit at 5% of our energy.</p>
+            </section>
+
+            <!--Test 4 : objectif raté-->
+            <section class="test test-fibre">
+                <h2>Test 4: fibre</h2>
+                <p class="score">61%</p>
+                <p>Fibre is the one thing we should eat more of, and we're falling well short.</p>
+                <p>Food Standards Scotland says adults should aim for 30 g of fibre a day. The survey uses an older way of measuring fibre, in which that target works out at about 23 g.</p>
+                <p>We get just 14 g a day from the food we buy. That's only six grams in every ten we need.</p>
+                <p>Fibre is linked to a lower risk of heart disease, type 2 diabetes and bowel cancer, and helps us feel fuller for longer.</p>
+            </section>
+
+            <!--Repas à l'extérieur-->
+            <section class="test test-out">
+                <h2>What about meals out?</h2>
+                <p>Food eaten outside the home, from chippy teas to meal deals, makes up only about 1 in 10 of our calories.</p>
+                <p>Press "Add eating out" on the chart to see the difference. Salt jumps from 108% to 118% of the limit, and fibre edges up from 55% to 61%.</p>
+                <p>But the fat and sugar bars barely move. Most of the problem starts in our own shopping trolleys.</p>
+            </section>
+
+            <!--Pourquoi c'est important-->
+            <section class="test test-why">
+                <h2>Why it matters</h2>
+                <p>Food Standards Scotland says that in Scotland "we're generally eating too much fat", and that most of us don't eat enough fibre.</p>
+                <p>Carrying excess weight raises our chances of heart disease, type 2 diabetes and some cancers.</p>
+                <p>The good news? Small swaps in the weekly shop can make a real difference.</p>
+            </section>
+        </article>
+
+        <!--Encadré conseils-->
+        <aside id="tips">
+            <h2>What can you do?</h2>
+            <ul>
+                <li>Check food labels and choose the lower-fat and lower-salt options.</li>
+                <li>Have sweets, cakes and sugary drinks less often, and keep fruit juice to one small glass (150 ml) a day.</li>
+                <li>Swap white bread for wholemeal, and try porridge oats for breakfast.</li>
+                <li>Aim for at least five portions of fruit and veg a day.</li>
+            </ul>
+            <p>More tips on the <a href="https://www.foodstandards.gov.scot/consumer-advice/healthy-eating">Food Standards Scotland website</a>.</p>
+        </aside>
+
+        <!--Questions des lecteurs : on clique sur une question pour ouvrir la réponse-->
+        <!--details/summary : balises HTML qui s'ouvrent toutes seules, sans JS (léger et accessible)-->
+        <section id="questions">
+            <h2>Your questions answered</h2>
+
+            <details>
+                <summary>How did we work out the scores?</summary>
+                <p>We divided what the average Scot buys by the official target, then multiplied by 100.</p>
+                <p>For salt: 7.1 g a day ÷ 6 g × 100 = 118%. Anything over 100% means the limit has been broken.</p>
+            </details>
+
+            <details>
+                <summary>Is this really what Scots eat?</summary>
+                <p>Not exactly. The survey records the food and drink households say they bought. Some of it is wasted, and people tend to forget a few items.</p>
+                <p>Salt added at the table is not counted, so the real salt figure is even higher.</p>
+            </details>
+
+            <details>
+                <summary>Why does sugar look different from today's advice?</summary>
+                <p>The survey measures sugar as "non-milk extrinsic sugars" and fibre as "non-starch polysaccharides". We compared each one with a target in the same unit, so the scores are fair.</p>
+            </details>
+
+            <details>
+                <summary>Is the data up to date?</summary>
+                <p>The figures date from 2018/19, before COVID and the cost-of-living crisis, which have changed how many families shop.</p>
+            </details>
+
+            <details>
+                <summary>Where do the figures come from?</summary>
+                <p><a href="https://www.gov.uk/government/statistical-data-sets/family-food-datasets">Defra, Family Food datasets</a>, <a href="https://www.foodstandards.gov.scot/science-and-evidence/scottish-dietary-goals">Scottish Dietary Goals (2016)</a> and <a href="https://www.foodstandards.gov.scot/consumer-advice/healthy-eating/balanced-diet/understanding-nutrients">Food Standards Scotland</a>.</p>
+            </details>
+        </section>
+    </main>
+
+    <!--Pied de page comme sur mes anciens sites : logo, retour en haut, auteur-->
+    <footer>
+        <!--Logo du journal-->
+        <div class="footer-left">
+            <p class="logo-footer">Daily Record</p>
+        </div>
+        <!--Auteur + mention projet étudiant-->
+        <div class="footer-right">
+            <p>Made by Annah Chantemesse</p>
+            <p class="mention">Student project (BUT MMI, IUT Clermont Auvergne). Not affiliated with the Daily Record.</p>
+        </div>
+    </footer>
+
+    <!--Petite flèche flottante en bas à droite pour remonter en haut (le clic est géré dans le JS)-->
+    <!--aria-label : le lecteur d'écran lit "Back to top" au lieu de "flèche"-->
+    <button type="button" id="back-to-top" class="back-to-top" aria-label="Back to top">↑</button>
+
+</body>
+
+</html>
